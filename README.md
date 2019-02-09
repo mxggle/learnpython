@@ -143,7 +143,7 @@
 
 ## list和tuple
 1. list是一种有序的集合，可以随时添加和删除其中的元素
-	 - 用len()函数获得list元素的个数
+	 - `len()`函数获得list元素的个数
 	 
 		```
 		>>> classmates = ['Michael', 'Bob', 'Tracy']
@@ -152,7 +152,7 @@
 		>>> len(classmates)
 		3
 		```
-	- 用索引来访问 `classmates = ['Michael', 'Bob', 'Tracy']`
+	- 索引访问 `classmates = ['Michael', 'Bob', 'Tracy']`
 	
 	 - 正整数索引表示从左到右
 	 
@@ -176,3 +176,165 @@
 			>>> classmates[-3]
 			'Michael'
 			```
+	- `append()`追加元素
+	
+		```
+		>>> classmates.append('Adam')
+		>>> classmates
+		['Michael', 'Bob', 'Tracy', 'Adam']
+		```
+	- `insert()`指定位置插入元素
+	
+		```
+		>>> classmates.insert(1, 'Jack')
+		>>> classmates
+		['Michael', 'Jack', 'Bob', 'Tracy', 'Adam']
+		```
+	- `pop()`删除list末尾元素，`pop(i)`删除指定索引元素(返回被删除元素)
+	
+		```
+		>>> classmates.pop()
+		'Adam'
+		>>> classmates
+		['Michael', 'Jack', 'Bob', 'Tracy']
+		
+		>>> classmates.pop(1)
+		'Jack'
+		>>> classmates
+		['Michael', 'Bob', 'Tracy']
+		```
+2. tuple是另一种有序列表叫元组	
+ 
+	```
+	>>> classmates = ('Michael', 'Bob', 'Tracy')
+	```
+	- 只有1个元素的tuple定义时必须加一个逗号`,`，来消除歧义
+	
+		```
+		>>> t = (1,)
+		>>> t
+		(1,)
+		```
+		
+## 条件判断
+
+```
+# 列1
+age = 20
+if age >= 6:
+    print('teenager')
+elif age >= 18:
+    print('adult')
+else:
+    print('kid')
+# 结果为 adult
+
+# 列2
+s = input('birth: ')
+birth = int(s)
+if birth < 2000:
+    print('00前')
+else:
+    print('00后')
+int(s)
+```
+
+## 循环
+
+1. `for...in` 循环
+
+	```
+	names = ['Michael', 'Bob', 'Tracy']
+	for name in names:
+	    print(name)
+	```
+2. `while` 循环
+
+	```
+	sum = 0
+	n = 99
+	while n > 0:
+	    sum = sum + n
+	    n = n - 2
+	print(sum)
+	
+	```
+	
+`break`语句可以在循环过程中直接退出循环，而`continue`语句可以提前结束本轮循环，并直接开始下一轮循环。这两个语句通常都必须配合if语句使用
+
+不要滥用`break`和`continue`语句。break和continue会造成代码执行逻辑分叉过多，容易出错。大多数循环并不需要用到`break`和`continue`语句	
+
+## `dict`和`set`
+1. dict
+	1. Python内置了字典：dict的支持,使用键-值（key-value）存储，具有极快的查找速度
+	
+		```
+		>>> d = {'Michael': 95, 'Bob': 75, 'Tracy': 85}
+		>>> d['Michael']
+		95
+		
+		# 多次对一个key放入value，后面的值会把前面的值冲掉
+		>>> d['Jack'] = 90
+		>>> d['Jack']
+		90
+		>>> d['Jack'] = 88
+		>>> d['Jack']
+		88
+		```
+	
+	2. 如果key不存在，dict就会报错,避免key不存在的错误的两种方法：
+		- 通过`in`判断
+		
+			```
+			>>> 'Thomas' in d
+			False
+			``` 
+		- 通过dict提供的get()方法，如果key不存在，可以返回None，或者自己指定的value：
+		
+			```
+			>>> d.get('Thomas')
+			>>> d.get('Thomas', -1)
+			-1
+			```
+			注意：返回None的时候Python的交互环境不显示结果。
+	
+	3. 删除元素
+	
+		```
+		>>> d.pop('Bob')
+		75
+		>>> d
+		{'Michael': 95, 'Tracy': 85}
+		```
+	
+	4. 对比`list`
+	
+	    | list        | dict    |
+	    | --------   | -----:   |
+	    | 查找和插入的时间随着元素的增加而增加  | 查找和插入的速度极快，不会随着key的增加而变慢 |
+	    | 需要占用大量的内存，内存浪费多 | 占用空间小，浪费内存很少  |
+	所以，dict是用空间来换取时间的一种方法。
+	
+2. set
+set和dict类似，也是一组key的集合，但不存储value。由于key不能重复，所以，在set中，没有重复的key
+
+ - 要创建一个set，需要提供一个list作为输入集合：
+ 
+	```
+	>>> s = set([1, 1, 2, 2, 3, 3])
+	>>> s
+	{1, 2, 3}
+	```
+ - `add(key)` 添加元素，`remove(key)`删除元素
+ - set可以看成数学意义上的无序和无重复元素的集合，因此，两个set可以做数学意义上的交集、并集等操作：
+ 
+	 	```
+		>>> s1 = set([1, 2, 3])
+		>>> s2 = set([2, 3, 4])
+		>>> s1 & s2
+		{2, 3}
+		>>> s1 | s2
+		{1, 2, 3, 4}
+	 	```
+ 
+	
